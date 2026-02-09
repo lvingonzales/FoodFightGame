@@ -6,48 +6,47 @@ using System;
 public class HUDScript : MonoBehaviour
 {
     [SerializeField]private PlayerInteraction player;
-    public TextMeshProUGUI ammoType;
-    public TextMeshProUGUI ammoCount;
+    public TextMeshProUGUI ammoTypeText;
+    public TextMeshProUGUI ammoCountText;
 
-    private void onEnable()
+    private void OnEnable()
     {
-        PlayerInteraction.onPlayerInteraction += refreshUi;
+        PlayerInteraction.OnPlayerInteraction += refreshUi;
+
     }
 
-    private void onDisable()
+    private void OnDisable()
     {
-        PlayerInteraction.onPlayerInteraction -= refreshUi;
+        PlayerInteraction.OnPlayerInteraction -= refreshUi;
+
     }
 
-    private void refreshUi(PlayerInteraction playerInteraction)
+    public void refreshUi(string fruitName, int currentAmmo, int maxAmmo)
     {
-        setAmmoCountDisplay();
-        setAmmoTypeDisplay();
+        Debug.Log("Refreshed Ui");
+        setAmmoCountDisplay(currentAmmo, maxAmmo);
+        setAmmoTypeDisplay(fruitName);
     }
 
-    public void setAmmoTypeDisplay ()
+    public void setAmmoTypeDisplay (string ammoType)
     {
-        string currentAmmoType = player.getAmmoType();
-
-        if (currentAmmoType == null)        
+        if (ammoType == null)        
         {
-            ammoType.text = "No Fruit";
+            ammoTypeText.text = "No Fruit";
         } else
         {
-            ammoType.text = currentAmmoType;
+            ammoTypeText.text = ammoType;
         }
     }
 
-    public void setAmmoCountDisplay ()
+    public void setAmmoCountDisplay (int currentAmmo, int maxAmmo)
     {
-        int currentAmmoCount = player.getAmmoCount();
-
-        if(currentAmmoCount == 0)
+        if(currentAmmo == 0)
         {
-            ammoCount.text = "0/0";
+            ammoCountText.text = "0/0";
         } else
         {
-            ammoCount.text = currentAmmoCount + "/" + currentAmmoCount;
+            ammoCountText.text = currentAmmo + "/" + maxAmmo;
         }
     }
 }

@@ -12,15 +12,15 @@ public class PlayerInteraction : MonoBehaviour
     private ShelfLogic currentShelf = null;
     [SerializeField] private int ammoCap = 6;
     [SerializeField] public int currentAmmo = 0;
+    private int maxAmmo = 0;
     public GameObject currentFruitPrefab;
 
-    public static event Action<PlayerInteraction> onPlayerInteraction;
+    public static event Action<string, int, int> OnPlayerInteraction;
 
     private void Start()
     {
         interactAction = InputSystem.actions.FindAction("Interact");
         fireAction = InputSystem.actions.FindAction("Fire");
-        onPlayerInteraction?.Invoke(this);
     }
 
     void Update()
@@ -42,7 +42,7 @@ public class PlayerInteraction : MonoBehaviour
         if (currentAmmo > 0)
         {
             Fire(GetMouseDirection());
-            currentAmmo = currentAmmo - 1; 
+            currentAmmo = currentAmmo - 1;
         }
 
         //Get Mouse position
@@ -54,7 +54,7 @@ public class PlayerInteraction : MonoBehaviour
         {
             ResetFruitData();
         }
-
+        OnPlayerInteraction?.Invoke(currentFruit, currentAmmo, maxAmmo);
     }
 
     private void AttemptReload()
@@ -67,7 +67,9 @@ public class PlayerInteraction : MonoBehaviour
             currentFruitData = currentShelf.GetAmmo();
             currentFruit = currentFruitData.prefabName;
             currentAmmo = ammoCap / currentFruitData.ammoWeight;
+            maxAmmo = currentAmmo;
             currentFruitPrefab = currentFruitData.prefab;
+            OnPlayerInteraction?.Invoke(currentFruit, currentAmmo, maxAmmo);
         }
     }
 
@@ -97,6 +99,7 @@ public class PlayerInteraction : MonoBehaviour
         currentFruitData = null;
         currentFruit = null;
         currentFruitPrefab = null;
+        maxAmmo = 0;
     }
 
     private Vector2 GetMouseDirection()
