@@ -59,7 +59,7 @@ public class PlayerInteraction : MonoBehaviour
 
     private void AttemptReload()
     {
-        if(currentFruitData != null || currentShelf == null ||currentShelf.isLoaded == false)
+        if(currentFruitData != null || currentShelf == null || currentShelf.isLoaded == false)
         {
             return;
         } else
