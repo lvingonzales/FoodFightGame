@@ -15,5 +15,7 @@ MonoBehaviour:
   speed: 10
   hitValue: 100
   ammoWeight: 6
+  effectDuration: 1.5
+  effectType: 0
   prefabName: Watermelon
   prefab: {fileID: 1667476638145178553, guid: df394cbeeb854c54688e2f21895c9fc3, type: 3}

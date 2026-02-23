@@ -1,32 +1,19 @@
-using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 
 public class Controllers : MonoBehaviour
 {
-    // private bool connected = false;
+    public GameObject playerPrefab;
+    [SerializeField]private List<Player> players = new List<Player>();
 
-    // IEnumerator checkForControllers()
-    // {
-    //     while (true)
-    //     {
-    //         var controllers = Input.GetJoystickNames();
+    void Awake ()
+    {
+        players.Clear();
+    }
 
-    //         if (!connected && controllers.Length > 0)
-    //         {
-    //             connected = true;
-    //             Debug.Log("Connected!");
-    //         } else if (connected && controllers.Length == 0)
-    //         {
-    //             connected = false;
-    //             Debug.Log("Disconnected");
-    //         }
-
-    //         yield return new WaitForSeconds(1f);
-    //     }
-    // }
-
-    // void Awake()
-    // {
-    //     StartCoroutine(checkForControllers());
-    // }
+    void Start()
+    {
+        GameObject playerInstance = Instantiate(playerPrefab, Vector3.zero, Quaternion.identity);
+        players.Add(playerInstance.GetComponent<Player>());
+    }
 }

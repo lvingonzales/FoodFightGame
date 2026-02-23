@@ -1,12 +1,39 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
+using System;
 
-public class Player : MonoBehaviour 
+public partial class Player : MonoBehaviour 
 {
-    public PlayerInteraction playerData;
+    // public PlayerInteraction playerData;
+    public int playerId {get; private set;}
+    public int playerScore;
 
-    private void Awake()
+    private int GetScore()
     {
-        playerData = GetComponent<PlayerInteraction>();
-    }    
+        return playerScore;
+    }
+
+    public void setScore(int addedScore)
+    {
+        playerScore = playerScore + addedScore;
+    }
+
+    void Awake()
+    {
+        MovementOnAwake();
+        playerId = UnityEngine.Random.Range(0, 10000);
+    }
+
+    void Start()
+    {
+        InitInteraction();
+        InitMovement();
+        playerScore = 0;
+    }   
+
+    void Update()
+    {
+        InteractionCheck();
+        UpdateMovement();
+    }
 }

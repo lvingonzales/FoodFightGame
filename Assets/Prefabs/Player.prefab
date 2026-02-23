@@ -41,16 +41,14 @@ GameObject:
   m_Component:
   - component: {fileID: 4331342358168725923}
   - component: {fileID: 4540698139130676890}
-  - component: {fileID: 8493326926677350300}
-  - component: {fileID: 3129810516100617285}
   - component: {fileID: 2244795698771506157}
   - component: {fileID: 5320542148740800582}
   - component: {fileID: 6377944354917905442}
-  - component: {fileID: 4066347812783725726}
-  - component: {fileID: 5137519755298232265}
+  - component: {fileID: 873659112483624950}
+  - component: {fileID: 6036978205179793713}
   m_Layer: 0
   m_Name: Player
-  m_TagString: Untagged
+  m_TagString: player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -131,7 +129,34 @@ SpriteRenderer:
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
   m_SpriteSortPoint: 0
---- !u!114 &8493326926677350300
+--- !u!50 &2244795698771506157
+Rigidbody2D:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6118449210643717979}
+  m_BodyType: 0
+  m_Simulated: 1
+  m_UseFullKinematicContacts: 0
+  m_UseAutoMass: 1
+  m_Mass: 0.0001
+  m_LinearDamping: 0
+  m_AngularDamping: 0.05
+  m_GravityScale: 0
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_Interpolate: 1
+  m_SleepingMode: 1
+  m_CollisionDetection: 0
+  m_Constraints: 4
+--- !u!114 &5320542148740800582
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -140,13 +165,33 @@ MonoBehaviour:
   m_GameObject: {fileID: 6118449210643717979}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ef991646f8d53d44593fab7062c5b42b, type: 3}
+  m_Script: {fileID: 11500000, guid: 4905df66ff2de2241bd9f2f3787a7c6c, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: '::'
-  mSpeed: 10
+  m_EditorClassIdentifier: Assembly-CSharp::PlayerLogic
+  playerScore: 0
+  currentFruit: 
+  currentFruitData: {fileID: 0}
+  ammoCap: 6
+  currentAmmo: 0
+  currentFruitPrefab: {fileID: 0}
+  mSpeed: 7
+  friction: 1
   mainCamera: {fileID: 0}
---- !u!61 &3129810516100617285
-BoxCollider2D:
+--- !u!114 &6377944354917905442
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6118449210643717979}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 531e390f94c5b9b4f9d8599c85a6ab47, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::SpriteDepthSort
+  feetPoint: {fileID: 718657416434077257}
+--- !u!58 &873659112483624950
+CircleCollider2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -179,73 +224,10 @@ BoxCollider2D:
   m_UsedByEffector: 0
   m_CompositeOperation: 0
   m_CompositeOrder: 0
-  m_Offset: {x: -0.054309368, y: -0.0090518}
-  m_SpriteTilingProperty:
-    border: {x: 0, y: 0, z: 0, w: 0}
-    pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 5.34, y: 5.34}
-    newSize: {x: 1, y: 1}
-    adaptiveTilingThreshold: 0.5
-    drawMode: 0
-    adaptiveTiling: 0
-  m_AutoTiling: 0
-  m_Size: {x: 5.8568287, y: 5.8749323}
-  m_EdgeRadius: 0
---- !u!50 &2244795698771506157
-Rigidbody2D:
-  serializedVersion: 5
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6118449210643717979}
-  m_BodyType: 0
-  m_Simulated: 1
-  m_UseFullKinematicContacts: 0
-  m_UseAutoMass: 1
-  m_Mass: 0.62098145
-  m_LinearDamping: 0
-  m_AngularDamping: 0.05
-  m_GravityScale: 0
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_Interpolate: 0
-  m_SleepingMode: 1
-  m_CollisionDetection: 0
-  m_Constraints: 4
---- !u!114 &5320542148740800582
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6118449210643717979}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4905df66ff2de2241bd9f2f3787a7c6c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::PlayerLogic
-  playerMovement: {fileID: 0}
---- !u!114 &6377944354917905442
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6118449210643717979}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 531e390f94c5b9b4f9d8599c85a6ab47, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::SpriteDepthSort
-  feetPoint: {fileID: 718657416434077257}
---- !u!61 &4066347812783725726
-BoxCollider2D:
+  m_Offset: {x: 0, y: 0}
+  m_Radius: 3
+--- !u!58 &6036978205179793713
+CircleCollider2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -278,35 +260,8 @@ BoxCollider2D:
   m_UsedByEffector: 0
   m_CompositeOperation: 0
   m_CompositeOrder: 0
-  m_Offset: {x: 0.018103361, y: 0.25344437}
-  m_SpriteTilingProperty:
-    border: {x: 0, y: 0, z: 0, w: 0}
-    pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 5.34, y: 5.34}
-    newSize: {x: 1, y: 1}
-    adaptiveTilingThreshold: 0.5
-    drawMode: 0
-    adaptiveTiling: 0
-  m_AutoTiling: 0
-  m_Size: {x: 4.652079, y: 3.3371177}
-  m_EdgeRadius: 0
---- !u!114 &5137519755298232265
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6118449210643717979}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7c929c5993037cd48a9c84e0f99d80ac, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::PlayerInteraction
-  currentFruit: 
-  currentFruitData: {fileID: 0}
-  ammoCap: 6
-  currentAmmo: 0
-  currentFruitPrefab: {fileID: 0}
+  m_Offset: {x: 0, y: 0}
+  m_Radius: 2.4
 --- !u!1 &7670647503443335263
 GameObject:
   m_ObjectHideFlags: 0

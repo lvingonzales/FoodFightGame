@@ -2,7 +2,7 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 using System;
 
-public class PlayerInteraction : MonoBehaviour
+public partial class Player : MonoBehaviour
 {
 
     [SerializeField]public string currentFruit = null;
@@ -17,13 +17,13 @@ public class PlayerInteraction : MonoBehaviour
 
     public static event Action<string, int, int> OnPlayerInteraction;
 
-    private void Start()
+    void InitInteraction()
     {
         interactAction = InputSystem.actions.FindAction("Interact");
         fireAction = InputSystem.actions.FindAction("Fire");
     }
 
-    void Update()
+    void InteractionCheck()
     {
         if (fireAction.triggered)
         {
@@ -116,8 +116,8 @@ public class PlayerInteraction : MonoBehaviour
         GameObject instance = Instantiate(currentFruitPrefab, transform.position, Quaternion.identity);
 
         ProjectileBaseClass fruit =  instance.GetComponent<ProjectileBaseClass>();
-        Debug.Log(fruit);
-        fruit.Launch(direction);
+        Debug.Log(playerId);
+        fruit.Launch(direction, playerId);
     }
 
     public string getAmmoType()

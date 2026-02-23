@@ -1,31 +1,40 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
-public class PlayerMovement : MonoBehaviour
+public partial class Player : MonoBehaviour
 {
-    [SerializeField] private float mSpeed = 10f;
+    [SerializeField] private float mSpeed;
+    private float speedLimit = 6f;
+    public float friction;
     [SerializeField] private Camera mainCamera;
     
     InputAction moveAction;
     Vector2 moveValue;
     Rigidbody2D rb;
 
-    private void Awake() {
+    void MovementOnAwake() {
         rb = GetComponent<Rigidbody2D>();
     }
 
-    private void Start()
+    void InitMovement()
     {
+        mSpeed = 1f;
+        friction = 1f;
         moveAction = InputSystem.actions.FindAction("Movement");
+        rb.linearDamping = speedLimit * friction;
     }
 
-    void Update()
+    void UpdateMovement()
     {
         moveValue = moveAction.ReadValue<Vector2>();
     }
 
     private void FixedUpdate()
     {
-        // Apply movement
-        rb.linearVelocity = moveValue * mSpeed;
+        rb.AddForce(moveValue * mSpeed, ForceMode2D.Impulse);
+
+        if(rb.linearVelocity.magnitude > speedLimit)
+        {
+            rb.linearVelocity = rb.linearVelocity.normalized * speedLimit;
+        }
     }
 }

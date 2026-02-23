@@ -15,13 +15,12 @@ public abstract class PlayerUI : MonoBehaviour
 
     private void OnEnable()
     {
-        PlayerInteraction.OnPlayerInteraction += refreshUi;
-
+        Player.OnPlayerInteraction += refreshUi;
     }
 
     private void OnDisable()
     {
-        PlayerInteraction.OnPlayerInteraction -= refreshUi;
+        Player.OnPlayerInteraction -= refreshUi;
 
     }
 

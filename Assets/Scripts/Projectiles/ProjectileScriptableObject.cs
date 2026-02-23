@@ -7,6 +7,10 @@ public class ProjectileScriptableObject : ScriptableObject
     public float speed = 10f;
     public int hitValue = 10;
     public int ammoWeight = 1;
+
+
+    public float effectDuration;
+    public EffectTypes effectType;
         
     public string prefabName;
     public GameObject prefab;
