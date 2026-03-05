@@ -142,7 +142,7 @@ Rigidbody2D:
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 1
   m_Mass: 0.0001
-  m_LinearDamping: 0
+  m_LinearDamping: 1
   m_AngularDamping: 0.05
   m_GravityScale: 0
   m_Material: {fileID: 0}
@@ -175,7 +175,7 @@ MonoBehaviour:
   currentAmmo: 0
   currentFruitPrefab: {fileID: 0}
   mSpeed: 7
-  friction: 1
+  friction: 100
   mainCamera: {fileID: 0}
 --- !u!114 &6377944354917905442
 MonoBehaviour:

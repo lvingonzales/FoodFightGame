@@ -31,7 +31,7 @@ public class MovingEnemy : Enemy
     
     private void retarget ()
     {
-        xTarget = startPosition + (distance * direction);
+        // xTarget = startPosition + (distance * direction);
     }
 
     void FixedUpdate()

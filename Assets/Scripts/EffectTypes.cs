@@ -4,5 +4,8 @@ public enum EffectTypes
 {
     Stun,
     None, 
-    Slippery
+    Slippery,
+    Burn,
+    Clean,
+    
 }

@@ -1,0 +1,21 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a73ca906de673894482c462749f2ed82, type: 3}
+  m_Name: ChocolateSyrup
+  m_EditorClassIdentifier: Assembly-CSharp::ProjectileScriptableObject
+  speed: 7
+  hitValue: 50
+  ammoWeight: 3
+  effectDuration: 5
+  effectType: 3
+  prefabName: Chocolate Syrup
+  prefab: {fileID: 1493620647468807464, guid: 545a3407887f69eea999adf33d00992e, type: 3}

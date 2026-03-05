@@ -2,6 +2,7 @@ using UnityEngine;
 using TMPro;
 using UnityEngine.InputSystem;
 using System;
+using System.Collections;
 
 public abstract class PlayerUI : MonoBehaviour
 {
@@ -25,4 +26,6 @@ public abstract class PlayerUI : MonoBehaviour
     }
 
     public abstract void refreshUi (string fruitName, int currentAmmo, int maxAmmo);
+
+    
 }

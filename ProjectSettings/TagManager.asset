@@ -5,6 +5,8 @@ TagManager:
   serializedVersion: 3
   tags:
   - Boundary
+  - player
+  - enemy
   layers:
   - Default
   - TransparentFX
@@ -44,6 +46,9 @@ TagManager:
     locked: 0
   - name: Player
     uniqueID: 447205283
+    locked: 0
+  - name: Projectiles
+    uniqueID: 1479478695
     locked: 0
   - name: Ui
     uniqueID: 2801783899

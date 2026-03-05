@@ -36,6 +36,9 @@ public class Enemy : MonoBehaviour
         case EffectTypes.Slippery:
             StartCoroutine(Slippery(duration));
             break;
+        case EffectTypes.Burn:
+            StartCoroutine(Burn(duration));
+            break;
     }
     }
 
@@ -68,6 +71,25 @@ public class Enemy : MonoBehaviour
 
         friction = originalFriction;
         isSlippery = false;
+    } 
+
+    private bool isBurning = false;
+    IEnumerator Burn(float duration)
+    {
+        if(isBurning) yield break;
+        isBurning = true;
+        Debug.Log(enemyId + "- isBurning: " + isBurning);
+
+        for (int i = 0; i < duration; i++)
+        {
+            Debug.Log("Burn tick");
+            setScore(10);
+            yield return new WaitForSeconds(1f);
+        }
+
+        yield return new WaitForSeconds(duration);
+
+        isBurning = false;
     } 
 
     void Start()
