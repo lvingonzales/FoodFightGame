@@ -25,7 +25,7 @@ Transform:
   m_GameObject: {fileID: 2746703534930035205}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: -2.67, z: 0}
+  m_LocalPosition: {x: 0, y: -2.09, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -115,9 +115,9 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_GlobalIlluminationMeshLod: 0
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingLayerID: 447205283
+  m_SortingLayer: 2
+  m_SortingOrder: 2
   m_MaskInteraction: 0
   m_Sprite: {fileID: -7896281735413620878, guid: 2bb96e6fc4fcf854992b928f63622fbb, type: 3}
   m_Color: {r: 0.4764151, g: 1, b: 0.876923, a: 1}
@@ -141,7 +141,7 @@ Rigidbody2D:
   m_Simulated: 1
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 1
-  m_Mass: 0.0001
+  m_Mass: 0.7238231
   m_LinearDamping: 1
   m_AngularDamping: 0.05
   m_GravityScale: 0
@@ -175,6 +175,7 @@ MonoBehaviour:
   currentAmmo: 0
   currentFruitPrefab: {fileID: 0}
   mSpeed: 7
+  speedLimit: 10
   friction: 100
   mainCamera: {fileID: 0}
 --- !u!114 &6377944354917905442
@@ -341,7 +342,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_GlobalIlluminationMeshLod: 0
   m_SortingLayerID: -1493183397
-  m_SortingLayer: 2
+  m_SortingLayer: 3
   m_SortingOrder: 0
   m_MaskInteraction: 0
   m_Sprite: {fileID: -6142374563283994760, guid: 85533c28ed4b3c045990e684ad3c9324, type: 3}

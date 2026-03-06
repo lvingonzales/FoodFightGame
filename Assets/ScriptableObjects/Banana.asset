@@ -17,5 +17,8 @@ MonoBehaviour:
   ammoWeight: 1
   effectDuration: 2
   effectType: 2
-  prefabName: 
-  prefab: {fileID: 0}
+  prefabName: Banana
+  prefab: {fileID: 1493620647468807464, guid: daa7c7ed9edb21947af82722f67d2a23, type: 3}
+  spriteLarge: {fileID: 7381965769198725172, guid: 6e1f6d40904daff4ab4cab27a337655d, type: 3}
+  spriteSmall: {fileID: 7381965769198725172, guid: 3a42ac9b48901ea4bb19f3013d5e77d3, type: 3}
+  pileSprite: {fileID: 5462606661683704211, guid: fbfce525428fcd7449c4d8b2d597204d, type: 3}

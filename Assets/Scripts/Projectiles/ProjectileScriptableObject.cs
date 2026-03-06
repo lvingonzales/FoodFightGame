@@ -15,4 +15,8 @@ public class ProjectileScriptableObject : ScriptableObject
     public string prefabName;
     public GameObject prefab;
     
+    public Sprite spriteLarge;
+    public Sprite spriteSmall;
+    public Sprite pileSprite;
+    
 }

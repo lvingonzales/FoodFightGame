@@ -19,3 +19,6 @@ MonoBehaviour:
   effectType: 1
   prefabName: Tomato
   prefab: {fileID: 1493620647468807464, guid: 20b341f60e3695f41ada188712101a0f, type: 3}
+  spriteLarge: {fileID: -3962807554240710951, guid: b4957741e060b8147ab525640d877758, type: 3}
+  spriteSmall: {fileID: -3962807554240710951, guid: f7395ccaedef8f449ab52a8a21407c1f, type: 3}
+  pileSprite: {fileID: 5462606661683704211, guid: fbfce525428fcd7449c4d8b2d597204d, type: 3}

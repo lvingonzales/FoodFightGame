@@ -4,9 +4,8 @@ using System;
 
 public partial class Player : MonoBehaviour
 {
-
     [SerializeField]public string currentFruit = null;
-    [SerializeField]private ProjectileScriptableObject currentFruitData = null;
+    [SerializeField]private ProjectileScriptableObject primaryFruitData, secondaryFruitData;
 
     InputAction fireAction, interactAction;
     private ShelfLogic currentShelf = null;
@@ -15,7 +14,7 @@ public partial class Player : MonoBehaviour
     private int maxAmmo = 0;
     public GameObject currentFruitPrefab;
 
-    public static event Action<string, int, int> OnPlayerInteraction;
+    public static event Action<ProjectileScriptableObject, ProjectileScriptableObject, int> UpdateInventory;
 
     void InitInteraction()
     {
@@ -52,28 +51,46 @@ public partial class Player : MonoBehaviour
         //Reset Ammo
         if (currentAmmo == 0)
         {
-            ResetFruitData();
+            if(secondaryFruitData == null)
+            {
+                ResetFruitData();
+                UpdateInventory?.Invoke(primaryFruitData, secondaryFruitData, playerId);
+                return;
+            }
+            primaryFruitData = secondaryFruitData;
+            secondaryFruitData = null;
+            UpdateInventory?.Invoke(primaryFruitData, secondaryFruitData, playerId);
+
+            currentAmmo = ammoCap / primaryFruitData.ammoWeight;
+            maxAmmo = currentAmmo;
+            currentFruitPrefab = primaryFruitData.prefab;
         }
-        OnPlayerInteraction?.Invoke(currentFruit, currentAmmo, maxAmmo);
     }
 
     private void AttemptReload()
     {
-        if(currentFruitData != null || currentShelf == null || currentShelf.isLoaded == false)
+        if(currentShelf == null || currentShelf.isLoaded == false)
         {
             return;
+        }
+
+        if(primaryFruitData == null)
+        {
+            primaryFruitData = currentShelf.GetAmmo();
+        } else if(secondaryFruitData == null)
+        {
+            secondaryFruitData = currentShelf.GetAmmo();
         } else
         {
-            currentFruitData = currentShelf.GetAmmo();
-            currentFruit = currentFruitData.prefabName;
-            currentAmmo = ammoCap / currentFruitData.ammoWeight;
-            maxAmmo = currentAmmo;
-            currentFruitPrefab = currentFruitData.prefab;
-            OnPlayerInteraction?.Invoke(currentFruit, currentAmmo, maxAmmo);
+            return;
         }
-    }
 
+            UpdateInventory?.Invoke(primaryFruitData, secondaryFruitData, playerId);
 
+            currentAmmo = ammoCap / primaryFruitData.ammoWeight;
+            maxAmmo = currentAmmo;
+            currentFruitPrefab = primaryFruitData.prefab;
+        }
 
     // Triggers and Collisions
     private void OnTriggerEnter2D(Collider2D other) {
@@ -96,7 +113,8 @@ public partial class Player : MonoBehaviour
 
     private void ResetFruitData ()
     {
-        currentFruitData = null;
+        primaryFruitData = null;
+        secondaryFruitData = null;
         currentFruit = null;
         currentFruitPrefab = null;
         maxAmmo = 0;

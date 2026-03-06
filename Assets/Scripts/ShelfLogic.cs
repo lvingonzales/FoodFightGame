@@ -8,22 +8,25 @@ public class ShelfLogic : MonoBehaviour
     [SerializeField] private float refillTime = 2f;
     public ProjectileScriptableObject[] fruitList;
     private ProjectileScriptableObject currentAmmoType;
+
+    [SerializeField] private SpriteRenderer shelfVisual;
     
     private int currentAmmo = 0;
     private bool isRefilling = false;
     public bool isLoaded = false;
-
-    SpriteRenderer spriteRenderer;
     private void Start()
     {
-        spriteRenderer = GetComponent<SpriteRenderer>();
-        spriteRenderer.color = Color.red;
         RefillShelf();
     }
 
     private void ChooseFruit()
     {
-        currentAmmoType = fruitList[0];
+        if(fruitList.Length == 0)
+        {
+            Debug.LogError("No fruits assigned to shelf!");
+            return;
+        }
+        currentAmmoType = fruitList[Random.Range(0, fruitList.Length)];
     }
 
     private void RefillShelf ()
@@ -38,8 +41,8 @@ public class ShelfLogic : MonoBehaviour
     {
         ChooseFruit();
         yield return new WaitForSeconds(refillTime);
+        shelfVisual.sprite = currentAmmoType.pileSprite;
         // currentAmmo = maxAmmo;
-        spriteRenderer.color = Color.green;
         isLoaded = true;
         isRefilling = false;
     }
@@ -57,7 +60,7 @@ public class ShelfLogic : MonoBehaviour
             Debug.Log("Nothing to Give");
             return null;
         }
-        spriteRenderer.color = Color.red;
+        shelfVisual.sprite = null;
         isLoaded = false;
 
         RefillShelf();

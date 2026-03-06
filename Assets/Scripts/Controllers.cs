@@ -5,11 +5,11 @@ using UnityEngine.UI;
 public class Controllers : MonoBehaviour
 {
     public GameObject playerPrefab;
-    public Button stunButton;
-    public Button slipButton;
-
+    public GameObject InventoryPrefab;
+    public int numOfPlayers = 1;
 
     [SerializeField]private List<Player> players = new List<Player>();
+    [SerializeField]private List<GameObject> InventorySpawnPoints = new List<GameObject>();
 
     void Awake ()
     {
@@ -18,21 +18,13 @@ public class Controllers : MonoBehaviour
 
     void Start()
     {
-        GameObject playerInstance = Instantiate(playerPrefab, Vector3.zero, Quaternion.identity);
-        players.Add(playerInstance.GetComponent<Player>());
+        for (int i = 0; i < numOfPlayers; i++)
+        {
+            GameObject playerInstance = Instantiate(playerPrefab, Vector3.zero, Quaternion.identity);
+            players.Add(playerInstance.GetComponent<Player>());
 
-        stunButton.onClick.AddListener(StunPlayer);
-
-        slipButton.onClick.AddListener(SlipPlayer);
-    }
-
-    private void SlipPlayer ()
-    {
-        players[0].ApplyEffect(EffectTypes.Slippery, 5f);
-    }
-
-    private void StunPlayer ()
-    {
-        players[0].ApplyEffect(EffectTypes.Stun, 2f);
+            GameObject playerInventory = Instantiate(InventoryPrefab, InventorySpawnPoints[i].transform.position, Quaternion.identity);
+            playerInventory.GetComponent<InventoryScript>().attachedPlayer = playerInstance.GetComponent<Player>().playerId;
+        }
     }
 }
