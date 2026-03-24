@@ -4,7 +4,8 @@ using UnityEngine;
 public class ProjectileScriptableObject : ScriptableObject
 {
     [Header("Base Settings")]
-    public float speed = 10f;
+    public float baseForce = 10f;
+    public float mass = 1f;
     public int hitValue = 10;
     public int ammoWeight = 1;
 

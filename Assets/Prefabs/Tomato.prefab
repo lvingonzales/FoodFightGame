@@ -12,8 +12,8 @@ GameObject:
   - component: {fileID: 471399682921029345}
   - component: {fileID: 2977188109851337795}
   - component: {fileID: 7056116195395912239}
-  - component: {fileID: 6636939716402651266}
-  m_Layer: 0
+  - component: {fileID: 2034165930562295366}
+  m_Layer: 9
   m_Name: Tomato
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -81,8 +81,8 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_GlobalIlluminationMeshLod: 0
   m_SortingLayerID: 447205283
-  m_SortingLayer: 2
-  m_SortingOrder: 0
+  m_SortingLayer: 4
+  m_SortingOrder: 10
   m_MaskInteraction: 0
   m_Sprite: {fileID: -3962807554240710951, guid: 9a1446cc277bb9b0c90fb3b0a3de32f7, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -157,7 +157,7 @@ CircleCollider2D:
   m_CompositeOrder: 0
   m_Offset: {x: -0.007105184, y: 0}
   m_Radius: 0.16384366
---- !u!114 &6636939716402651266
+--- !u!114 &2034165930562295366
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -169,4 +169,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a68f6b813250a6847a84742f86910e47, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ProjectileBaseClass
-  projectileType: {fileID: 11400000, guid: bafe0210b58f86341ad8bd833e4a06a8, type: 2}
+  data: {fileID: 11400000, guid: bafe0210b58f86341ad8bd833e4a06a8, type: 2}
+  particlesPrefab: {fileID: 5356068850285371939, guid: 86a6dfa45b357c24ba08fbd57b8bcede, type: 3}
+  ownerId: 0

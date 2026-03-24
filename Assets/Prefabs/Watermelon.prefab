@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 841250129961375006}
   - component: {fileID: 7951927507476896418}
   - component: {fileID: 7441783768240111749}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Watermelon
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -81,8 +81,8 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_GlobalIlluminationMeshLod: 0
   m_SortingLayerID: 447205283
-  m_SortingLayer: 2
-  m_SortingOrder: 0
+  m_SortingLayer: 4
+  m_SortingOrder: 10
   m_MaskInteraction: 0
   m_Sprite: {fileID: 8532703672136922592, guid: e0ef13432f0985dc080ba4b1e6d12d2d, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -169,4 +169,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a68f6b813250a6847a84742f86910e47, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ProjectileBaseClass
-  projectileType: {fileID: 11400000, guid: 6a688ffaa905964448db50b5cd3edc18, type: 2}
+  data: {fileID: 11400000, guid: 6a688ffaa905964448db50b5cd3edc18, type: 2}
+  particlesPrefab: {fileID: 5356068850285371939, guid: 86a6dfa45b357c24ba08fbd57b8bcede, type: 3}
+  ownerId: 0

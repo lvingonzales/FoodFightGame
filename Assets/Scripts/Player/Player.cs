@@ -9,6 +9,9 @@ public partial class Player : MonoBehaviour
     public int playerScore;
 
     Animator animator;
+    public GameObject aimArrow;
+    float aimRadius = 1f;
+    float arrowAngle;
 
     PlayerInput playerInput;
 
@@ -43,6 +46,10 @@ public partial class Player : MonoBehaviour
 
         animator.SetFloat("MoveX", direction.x);
         animator.SetFloat("MoveY", direction.y);
+
+        arrowAngle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
+        aimArrow.transform.position = transform.position + (Vector3)(direction * aimRadius);
+        aimArrow.transform.rotation = Quaternion.Euler(0, 0, arrowAngle - 45f);
     }
 
     void Update()

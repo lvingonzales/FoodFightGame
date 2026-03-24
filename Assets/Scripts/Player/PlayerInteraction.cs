@@ -14,7 +14,11 @@ public partial class Player : MonoBehaviour
     [SerializeField] private int ammoCap = 6;
     [SerializeField] public int currentAmmo = 0;
     private int maxAmmo = 0;
+
+
     float throwModifier = 1.0f;
+    float holdStart;
+
     public GameObject currentFruitPrefab;
 
     public static event Action<ProjectileScriptableObject, ProjectileScriptableObject, int> UpdateInventory;
@@ -27,12 +31,15 @@ public partial class Player : MonoBehaviour
 
     void InteractionCheck()
     {
-        fireAction.started += _ => ChargeFire();
-        fireAction.canceled += _ => ReleaseFire();
-        if (fireAction.triggered)
+        fireAction.started += ctx =>
         {
-            ThrowFruit();
-        }
+            holdStart = Time.time;
+        };
+        fireAction.canceled += _ctx =>
+        {
+            float heldFor = Time.time - holdStart;
+            ThrowFruit(heldFor, GetMouseDirection());
+        };
 
         if (interactAction.triggered)
         {
@@ -40,16 +47,9 @@ public partial class Player : MonoBehaviour
         }
     }
 
-    void ChargeFire ()
-    {
-        StartCoroutine(Charge());
-    }
-
     void ReleaseFire ()
     {
-        // Stop Charging
-        StopCoroutine(Charge());
-
+        Debug.Log("Threw" + throwModifier);
         // Throw using modifier
         ThrowFruit(throwModifier, GetMouseDirection());
 
@@ -57,22 +57,24 @@ public partial class Player : MonoBehaviour
         throwModifier = 1.0f;
     }
 
-    IEnumerator Charge ()
+    private void ThrowFruit(float heldFor, Vector3 mouseDirection)
     {
-        yield return new WaitForSeconds(0.1f);
-    }
 
-    private void ThrowFruit(float throwModifier, Vector3 mouseDirection)
-    {
+        //Calculate throwModifier
+        throwModifier = throwModifier + Mathf.Clamp((Mathf.Round(heldFor * 100f) / 100f), 0f, 1f);
+
         //Check Ammo
         if (currentAmmo > 0)
         {
             Fire(GetMouseDirection());
             currentAmmo = currentAmmo - 1;
-        } else if (currentAmmo == 0)
+        }
+        if (currentAmmo == 0)
         {
             HandleEmptyAmmo();
-        }        
+        }
+
+        throwModifier = 1f;
     }
 
     void HandleEmptyAmmo ()
@@ -157,10 +159,10 @@ public partial class Player : MonoBehaviour
     private void Fire(Vector2 direction)
     {
         GameObject instance = Instantiate(currentFruitPrefab, transform.position, Quaternion.identity);
-
         ProjectileBaseClass fruit =  instance.GetComponent<ProjectileBaseClass>();
+        fruit.ownerId = playerId;
         Debug.Log(playerId);
-        fruit.Launch(direction, playerId, throwModifier);
+        fruit.Launch(direction, throwModifier);
     }
 
     public string getAmmoType()

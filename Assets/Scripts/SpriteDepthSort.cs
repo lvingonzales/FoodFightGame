@@ -13,6 +13,6 @@ public class SpriteDepthSort : MonoBehaviour
 
     private void LateUpdate() {
         float y = feetPoint != null ? feetPoint.position.y : transform.position.y;
-        sr.sortingOrder = Mathf.RoundToInt(-y * 100);
+        sr.sortingOrder = Mathf.Clamp(Mathf.RoundToInt(-y * 100), -2, 5);
     }
 }

@@ -3,9 +3,10 @@ using System;
 
 public class ProjectileBaseClass : MonoBehaviour
 {
-    [SerializeField]protected ProjectileScriptableObject projectileType;
+    [SerializeField]protected ProjectileScriptableObject data;
+    public GameObject particlesPrefab;
     public static event Action<int> OnPlayerHit;
-    private int parentPlayerId;
+    public int ownerId;
 
     protected Rigidbody2D rb;
     protected Vector2 endDestination;
@@ -13,6 +14,7 @@ public class ProjectileBaseClass : MonoBehaviour
     protected virtual void Awake () 
     {
         rb = GetComponent<Rigidbody2D>();
+        rb.mass = data.mass;
     }
 
     // public virtual void Fire(Vector2 direction, int playerId)
@@ -20,11 +22,14 @@ public class ProjectileBaseClass : MonoBehaviour
     //     rb.linearVelocity = direction * projectileType.speed;
         
     // }
-    public virtual void Launch(Vector2 direction, int playerId, float throwModifier)
+    public virtual void Launch(Vector2 direction, float throwModifier)
     {
-        rb.linearVelocity = direction * projectileType.speed;
-        rb.linearDamping = projectileType.speed * .01f;
-        parentPlayerId = playerId;
+        //rb.linearVelocity = direction * projectileType.speed;
+        //rb.linearDamping = projectileType.speed * .01f;
+
+        float force = data.baseForce * throwModifier;
+        rb.AddForce(direction * force, ForceMode2D.Impulse);
+        rb.AddTorque(force * 2.0f, ForceMode2D.Impulse);
     }
 
     protected void FixedUpdate()
@@ -34,21 +39,36 @@ public class ProjectileBaseClass : MonoBehaviour
 
      protected virtual void OnTriggerEnter2D(Collider2D other)
     {
-        Enemy hitEnemy = other.GetComponent<Enemy>();
+        // Register Player Hit
+        //hitEnemy.ApplyEffect(projectileType.effectType, projectileType.effectDuration);
+        //hitEnemy.setScore(projectileType.hitValue);
 
-        if (hitEnemy == null) return;
-        if (hitEnemy.enemyId == parentPlayerId) return;
+        if(other.gameObject.TryGetComponent(out Player player))
+        {
+            if(player.playerId == ownerId)
+            {
+                return;
+            }
+        }
 
-        hitEnemy.ApplyEffect(projectileType.effectType, projectileType.effectDuration);
-        hitEnemy.setScore(projectileType.hitValue);
+        Debug.Log(other.gameObject);
+        SpawnParticles();
         Destroy(gameObject);
     }
 
-    protected virtual void OnTriggerExit2D(Collider2D other) {
-        if(other.CompareTag("Boundary"))
+    protected virtual void SpawnParticles()
+    {
+        GameObject particles = Instantiate(
+            particlesPrefab,
+            transform.position,
+            Quaternion.identity
+            );
+        ParticleSystem ps = particles.GetComponent<ParticleSystem>();
+
+        if (ps != null )
         {
-            Destroy(gameObject);
+            float duration = ps.main.duration + ps.main.startLifetime.constantMax;
+            Destroy( particles, duration );
         }
     }
-
 }
