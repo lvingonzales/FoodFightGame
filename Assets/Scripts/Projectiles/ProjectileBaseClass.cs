@@ -20,7 +20,7 @@ public class ProjectileBaseClass : MonoBehaviour
     //     rb.linearVelocity = direction * projectileType.speed;
         
     // }
-    public virtual void Launch(Vector2 direction, int playerId)
+    public virtual void Launch(Vector2 direction, int playerId, float throwModifier)
     {
         rb.linearVelocity = direction * projectileType.speed;
         rb.linearDamping = projectileType.speed * .01f;

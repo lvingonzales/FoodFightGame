@@ -21,7 +21,7 @@ public partial class Player : MonoBehaviour
         // change speed and friction to add slippery
         mSpeed = 50f;
         friction = 1.25f;
-        moveAction = InputSystem.actions.FindAction("Movement");
+        moveAction = playerInput.actions.FindAction("Movement");
         rb.linearDamping = speedLimit * friction;
     }
 

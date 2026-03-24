@@ -1,6 +1,8 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
 using System;
+using System.Collections;
+using Unity.VisualScripting;
 
 public partial class Player : MonoBehaviour
 {
@@ -12,18 +14,21 @@ public partial class Player : MonoBehaviour
     [SerializeField] private int ammoCap = 6;
     [SerializeField] public int currentAmmo = 0;
     private int maxAmmo = 0;
+    float throwModifier = 1.0f;
     public GameObject currentFruitPrefab;
 
     public static event Action<ProjectileScriptableObject, ProjectileScriptableObject, int> UpdateInventory;
 
     void InitInteraction()
     {
-        interactAction = InputSystem.actions.FindAction("Interact");
-        fireAction = InputSystem.actions.FindAction("Fire");
+        interactAction = playerInput.actions.FindAction("Interact");
+        fireAction = playerInput.actions.FindAction("Fire");
     }
 
     void InteractionCheck()
     {
+        fireAction.started += _ => ChargeFire();
+        fireAction.canceled += _ => ReleaseFire();
         if (fireAction.triggered)
         {
             ThrowFruit();
@@ -35,23 +40,44 @@ public partial class Player : MonoBehaviour
         }
     }
 
-    private void ThrowFruit()
+    void ChargeFire ()
+    {
+        StartCoroutine(Charge());
+    }
+
+    void ReleaseFire ()
+    {
+        // Stop Charging
+        StopCoroutine(Charge());
+
+        // Throw using modifier
+        ThrowFruit(throwModifier, GetMouseDirection());
+
+        // Reset Modifier
+        throwModifier = 1.0f;
+    }
+
+    IEnumerator Charge ()
+    {
+        yield return new WaitForSeconds(0.1f);
+    }
+
+    private void ThrowFruit(float throwModifier, Vector3 mouseDirection)
     {
         //Check Ammo
         if (currentAmmo > 0)
         {
             Fire(GetMouseDirection());
             currentAmmo = currentAmmo - 1;
-        }
-
-        //Get Mouse position
-
-        //Instantiate Fruit
-        
-        //Reset Ammo
-        if (currentAmmo == 0)
+        } else if (currentAmmo == 0)
         {
-            if(secondaryFruitData == null)
+            HandleEmptyAmmo();
+        }        
+    }
+
+    void HandleEmptyAmmo ()
+    {
+        if(secondaryFruitData == null)
             {
                 ResetFruitData();
                 UpdateInventory?.Invoke(primaryFruitData, secondaryFruitData, playerId);
@@ -64,7 +90,6 @@ public partial class Player : MonoBehaviour
             currentAmmo = ammoCap / primaryFruitData.ammoWeight;
             maxAmmo = currentAmmo;
             currentFruitPrefab = primaryFruitData.prefab;
-        }
     }
 
     private void AttemptReload()
@@ -90,7 +115,7 @@ public partial class Player : MonoBehaviour
             currentAmmo = ammoCap / primaryFruitData.ammoWeight;
             maxAmmo = currentAmmo;
             currentFruitPrefab = primaryFruitData.prefab;
-        }
+    }
 
     // Triggers and Collisions
     private void OnTriggerEnter2D(Collider2D other) {
@@ -135,7 +160,7 @@ public partial class Player : MonoBehaviour
 
         ProjectileBaseClass fruit =  instance.GetComponent<ProjectileBaseClass>();
         Debug.Log(playerId);
-        fruit.Launch(direction, playerId);
+        fruit.Launch(direction, playerId, throwModifier);
     }
 
     public string getAmmoType()
