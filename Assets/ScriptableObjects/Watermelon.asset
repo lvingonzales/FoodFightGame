@@ -12,7 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a73ca906de673894482c462749f2ed82, type: 3}
   m_Name: Watermelon
   m_EditorClassIdentifier: Assembly-CSharp::ProjectileScriptableObject
-  speed: 10
+  baseForce: 15
+  mass: 3
   hitValue: 100
   ammoWeight: 6
   effectDuration: 1.5

@@ -8,7 +8,7 @@ public class ShelfLogic : MonoBehaviour
     [SerializeField] private float refillTime = 2f;
     public ProjectileScriptableObject[] fruitList;
     private ProjectileScriptableObject currentAmmoType;
-
+    public ProjectileScriptableObject fruitData { get; private set; } = null;
     [SerializeField] private SpriteRenderer shelfVisual;
     
     private int currentAmmo = 0;
@@ -26,7 +26,7 @@ public class ShelfLogic : MonoBehaviour
             Debug.LogError("No fruits assigned to shelf!");
             return;
         }
-        currentAmmoType = fruitList[Random.Range(0, fruitList.Length)];
+        fruitData = fruitList[Random.Range(0, fruitList.Length)];
     }
 
     private void RefillShelf ()
@@ -41,7 +41,7 @@ public class ShelfLogic : MonoBehaviour
     {
         ChooseFruit();
         yield return new WaitForSeconds(refillTime);
-        shelfVisual.sprite = currentAmmoType.pileSprite;
+        shelfVisual.sprite = fruitData.pileSprite;
         // currentAmmo = maxAmmo;
         isLoaded = true;
         isRefilling = false;
@@ -65,6 +65,6 @@ public class ShelfLogic : MonoBehaviour
 
         RefillShelf();
 
-        return currentAmmoType;
+        return fruitData;
     }
 }

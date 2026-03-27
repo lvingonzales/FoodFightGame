@@ -6,13 +6,13 @@ public partial class Player : MonoBehaviour
 {
     // public PlayerInteraction playerData;
     public int playerId {get; private set;}
+    public Color playerColor;
     public int playerScore;
 
-    Animator animator;
     public GameObject aimArrow;
-    float aimRadius = 1f;
-    float arrowAngle;
 
+
+    Rigidbody2D rb;
     PlayerInput playerInput;
 
     private int GetScore()
@@ -27,35 +27,21 @@ public partial class Player : MonoBehaviour
 
     void Awake()
     {
-        MovementOnAwake();
+        rb = GetComponent<Rigidbody2D>();
         playerInput = GetComponent<PlayerInput>();
         playerId = UnityEngine.Random.Range(0, 10000);
     }
 
     void Start()
     {
-        animator = GetComponent<Animator>();
-        InitInteraction();
+        aimArrow.GetComponent<ArrowColor>().SetArrowColor(playerColor);
         InitMovement();
         playerScore = 0;
     }   
 
-    void UpdateSprite ()
-    {
-        Vector2 direction = GetMouseDirection();
-
-        animator.SetFloat("MoveX", direction.x);
-        animator.SetFloat("MoveY", direction.y);
-
-        arrowAngle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
-        aimArrow.transform.position = transform.position + (Vector3)(direction * aimRadius);
-        aimArrow.transform.rotation = Quaternion.Euler(0, 0, arrowAngle - 45f);
-    }
-
     void Update()
     {
-        InteractionCheck();
+        UpdateParticles();
         UpdateMovement();
-        UpdateSprite();
     }
 }

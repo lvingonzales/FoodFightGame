@@ -1,30 +1,56 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.InputSystem;
+using System.Linq;
 
 public class Controllers : MonoBehaviour
 {
     public GameObject playerPrefab;
-    public GameObject InventoryPrefab;
-    public int numOfPlayers = 1;
 
-    [SerializeField]private List<Player> players = new List<Player>();
-    [SerializeField]private List<GameObject> InventorySpawnPoints = new List<GameObject>();
+    private List<PlayerInput> players = new List<PlayerInput>();
+    public List<Color> Colors = new List<Color>();
+    private const int MAX_PLAYERS = 4;
+    private bool keyboardTaken = false;
 
-    void Awake ()
+    private void Update()
     {
-        players.Clear();
+        if (players.Count >= MAX_PLAYERS) { return; }
+
+        if (!keyboardTaken && Keyboard.current.spaceKey.wasPressedThisFrame ) {
+            SpawnPlayer("KeyboardMouse", new InputDevice[] { Keyboard.current, Mouse.current });
+            keyboardTaken = true;
+        }
+
+        foreach (Gamepad gamepad in Gamepad.all)
+        {
+            if (players.Count >= MAX_PLAYERS) break;
+
+            bool alreadyAssigned = players.Any(p => p.devices.Contains(gamepad));
+            if (alreadyAssigned) continue;
+
+            if (gamepad.buttonSouth.wasPressedThisFrame)
+                SpawnPlayer("Gamepad", new InputDevice[] { gamepad });
+        }
     }
 
-    void Start()
+    void SpawnPlayer(string controlScheme, InputDevice[] devices)
     {
-        for (int i = 0; i < numOfPlayers; i++)
-        {
-            GameObject playerInstance = Instantiate(playerPrefab, Vector3.zero, Quaternion.identity);
-            players.Add(playerInstance.GetComponent<Player>());
+        int index = players.Count;
 
-            GameObject playerInventory = Instantiate(InventoryPrefab, InventorySpawnPoints[i].transform.position, Quaternion.identity);
-            playerInventory.GetComponent<InventoryScript>().attachedPlayer = playerInstance.GetComponent<Player>().playerId;
+        PlayerInput p = PlayerInput.Instantiate(
+            playerPrefab,
+            controlScheme: controlScheme,
+            pairWithDevices: devices
+            );
+        Debug.Log($"Control Scheme: {p.currentControlScheme}");
+        Debug.Log($"Paired Devices: {string.Join(", ", p.devices)}");
+
+        if (index < Colors.Count)
+        {
+            p.GetComponent<Player>().playerColor = Colors[index];
         }
+
+        players.Add(p.GetComponent<PlayerInput>());
     }
 }

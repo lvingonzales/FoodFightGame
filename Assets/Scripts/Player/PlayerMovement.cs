@@ -10,10 +10,10 @@ public partial class Player : MonoBehaviour
     
     InputAction moveAction;
     Vector2 moveValue;
-    Rigidbody2D rb;
+    
 
     void MovementOnAwake() {
-        rb = GetComponent<Rigidbody2D>();
+        
     }
 
     void InitMovement()

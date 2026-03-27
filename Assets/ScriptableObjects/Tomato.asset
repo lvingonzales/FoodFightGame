@@ -12,7 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a73ca906de673894482c462749f2ed82, type: 3}
   m_Name: Tomato
   m_EditorClassIdentifier: Assembly-CSharp::Projectile
-  speed: 20
+  baseForce: 8
+  mass: 0.5
   hitValue: 10
   ammoWeight: 1
   effectDuration: 0
