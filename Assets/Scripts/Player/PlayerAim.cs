@@ -15,11 +15,6 @@ public class PlayerAim : MonoBehaviour
         animator = GetComponent<Animator>();
     }
 
-    private void OnEnable()
-    {
-        
-    }
-
     void UpdateSprite()
     {
         Vector2 direction = GetAimDirection();

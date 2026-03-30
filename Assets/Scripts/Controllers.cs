@@ -7,9 +7,12 @@ using System.Linq;
 public class Controllers : MonoBehaviour
 {
     public GameObject playerPrefab;
+    public GameObject basketPrefab;
 
     private List<PlayerInput> players = new List<PlayerInput>();
     public List<Color> Colors = new List<Color>();
+    public List<BasketScript> baskets = new List<BasketScript>();
+    public List<GameObject> basketSpawners = new List<GameObject>();
     private const int MAX_PLAYERS = 4;
     private bool keyboardTaken = false;
 
@@ -43,14 +46,16 @@ public class Controllers : MonoBehaviour
             controlScheme: controlScheme,
             pairWithDevices: devices
             );
-        Debug.Log($"Control Scheme: {p.currentControlScheme}");
-        Debug.Log($"Paired Devices: {string.Join(", ", p.devices)}");
+
+        GameObject b = Instantiate(basketPrefab, basketSpawners[index].transform.position, Quaternion.identity);
 
         if (index < Colors.Count)
         {
             p.GetComponent<Player>().playerColor = Colors[index];
+            b.GetComponent<BasketScript>().basketColor = Colors[index];
         }
 
+        baskets.Add(b.GetComponent<BasketScript>());
         players.Add(p.GetComponent<PlayerInput>());
     }
 }

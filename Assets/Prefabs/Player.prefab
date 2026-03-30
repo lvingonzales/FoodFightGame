@@ -103,7 +103,6 @@ GameObject:
   - component: {fileID: 4540698139130676890}
   - component: {fileID: 2244795698771506157}
   - component: {fileID: 5320542148740800582}
-  - component: {fileID: 6377944354917905442}
   - component: {fileID: 7208024063404061593}
   - component: {fileID: 493195453243329059}
   - component: {fileID: 3932135741359647881}
@@ -242,19 +241,6 @@ MonoBehaviour:
   speedLimit: 10
   friction: 100
   mainCamera: {fileID: 0}
---- !u!114 &6377944354917905442
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6118449210643717979}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 531e390f94c5b9b4f9d8599c85a6ab47, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::SpriteDepthSort
-  feetPoint: {fileID: 718657416434077257}
 --- !u!61 &7208024063404061593
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -424,6 +410,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: feee32a266d35934493ab30f4d110a85, type: 3}
   m_Name: 
   m_EditorClassIdentifier: '::'
+  primaryFruitData: {fileID: 0}
+  secondaryFruitData: {fileID: 0}
+  shelf: {fileID: 0}
+  currentAmmo: 0
 --- !u!1 &7055864672121522808
 GameObject:
   m_ObjectHideFlags: 0

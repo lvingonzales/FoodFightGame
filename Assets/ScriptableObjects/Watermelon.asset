@@ -22,4 +22,4 @@ MonoBehaviour:
   prefab: {fileID: 1667476638145178553, guid: df394cbeeb854c54688e2f21895c9fc3, type: 3}
   spriteLarge: {fileID: 8532703672136922592, guid: 27e5b461d86ba2b4da38e8f3cebc170c, type: 3}
   spriteSmall: {fileID: 8532703672136922592, guid: 0883031a3778a234f80c563a86ba6b64, type: 3}
-  pileSprite: {fileID: 0}
+  pileSprite: {fileID: 5462606661683704211, guid: fbfce525428fcd7449c4d8b2d597204d, type: 3}

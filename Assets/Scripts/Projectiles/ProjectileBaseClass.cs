@@ -17,11 +17,6 @@ public class ProjectileBaseClass : MonoBehaviour
         rb.mass = data.mass;
     }
 
-    // public virtual void Fire(Vector2 direction, int playerId)
-    // {
-    //     rb.linearVelocity = direction * projectileType.speed;
-        
-    // }
     public virtual void Launch(Vector2 direction, float throwModifier)
     {
         //rb.linearVelocity = direction * projectileType.speed;
@@ -64,6 +59,7 @@ public class ProjectileBaseClass : MonoBehaviour
             Quaternion.identity
             );
         ParticleSystem ps = particles.GetComponent<ParticleSystem>();
+        ps.Emit(30);
 
         if (ps != null )
         {

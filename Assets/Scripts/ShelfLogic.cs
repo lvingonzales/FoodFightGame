@@ -8,7 +8,7 @@ public class ShelfLogic : MonoBehaviour
     [SerializeField] private float refillTime = 2f;
     public ProjectileScriptableObject[] fruitList;
     private ProjectileScriptableObject currentAmmoType;
-    public ProjectileScriptableObject fruitData { get; private set; } = null;
+    private ProjectileScriptableObject fruitData;
     [SerializeField] private SpriteRenderer shelfVisual;
     
     private int currentAmmo = 0;
@@ -49,12 +49,6 @@ public class ShelfLogic : MonoBehaviour
 
     public ProjectileScriptableObject GetAmmo()
     {
-        // int ammoToGive = currentAmmo;
-        // if(currentAmmo == 0)
-        // {
-        //     Debug.Log("Nothing to give!");
-        // }
-        // currentAmmo = 0;
         if(isRefilling)
         {
             Debug.Log("Nothing to Give");

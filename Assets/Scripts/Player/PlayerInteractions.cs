@@ -1,15 +1,21 @@
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
 public class PlayerInteractions : MonoBehaviour
 {
     PlayerInput playerInput;
-
+    Player player;
+    PlayerAim playerAim;
+    float throwModifier = 1.0f;
     public ProjectileScriptableObject primaryFruitData = null, secondaryFruitData = null;
 
     private void Awake()
     {
+        player = GetComponent<Player>();
         playerInput = GetComponent<PlayerInput>();
+        playerAim = GetComponent<PlayerAim>();
+        fireAction = playerInput.actions.FindAction("Fire");
     }
 
     public void OnInteract()
@@ -39,11 +45,11 @@ public class PlayerInteractions : MonoBehaviour
     {
         if (primaryFruitData == null)
         {
-            primaryFruitData = shelf.fruitData;
+            primaryFruitData = shelf.GetAmmo();
             UpdateAmmo();
         } else if (secondaryFruitData == null)
         {
-            secondaryFruitData = shelf.fruitData;
+            secondaryFruitData = shelf.GetAmmo();
         } else
         {
             return;
@@ -58,11 +64,17 @@ public class PlayerInteractions : MonoBehaviour
     public int currentAmmo;
     private const int  MAX_AMMO_WEIGHT = 6;
 
-    public void OnFire()
+    public void Attack()
     {
-        Debug.Log("triggered Fire Action");
+        if (primaryFruitData == null) return;
+
         if (currentAmmo > 0)
         {
+            GameObject fruit = Instantiate(primaryFruitData.prefab, playerAim.aimArrow.transform.position, Quaternion.identity);
+            fruit.GetComponent<ProjectileBaseClass>().ownerId = player.playerId;
+            fruit.GetComponent<ProjectileBaseClass>().Launch(playerAim.GetAimDirection(), throwModifier);
+
+            throwModifier = 1f;
             currentAmmo = currentAmmo - 1;
         }
 
@@ -85,4 +97,21 @@ public class PlayerInteractions : MonoBehaviour
 
         UpdateAmmo ();
     }
+
+    private void Update()
+    {
+        fireAction.started += ctx =>
+        {
+            holdStart = Time.time;
+        };
+        fireAction.canceled += ctx =>
+        {
+            float heldTime = Time.time - holdStart;
+            throwModifier = throwModifier + Mathf.Clamp((Mathf.Round(heldTime * 100f) / 100f), 0f, 1f);
+            Attack();
+        };
+    }
+
+    InputAction fireAction;
+    float holdStart;
 }
