@@ -55,11 +55,14 @@ Material:
         m_Offset: {x: 0, y: 0}
     m_Ints: []
     m_Floats:
+    - _ProgressB: 0
+    - _Progress_A: 0
     - _QueueControl: 0
     - _QueueOffset: 0
-    - _Seed: 10
-    - _SplashAmount: 0
+    - _Seed: 0
+    - _SplashAmount: 1
     m_Colors:
-    - _Color: {r: 1, g: 0.9803922, b: 0.9803922, a: 1}
+    - _Color: {r: 0.7350297, g: 0.27654776, b: 0.27654776, a: 1}
+    - _ColorB: {r: 0.2721041, g: 0.764151, b: 0.2559185, a: 1}
   m_BuildTextureStacks: []
   m_AllowLocking: 1
