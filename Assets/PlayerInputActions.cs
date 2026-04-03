@@ -253,6 +253,28 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
                 },
                 {
                     ""name"": """",
+                    ""id"": ""391d562d-20b5-42bf-9685-5f809a0427e0"",
+                    ""path"": ""<Linux::8BitDo::8BitDoUltimateWirelessPro2WiredController>/Stick"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": "";Gamepad"",
+                    ""action"": ""Movement"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""e7b07b2f-8ca5-4471-90ac-c79ed0b55141"",
+                    ""path"": ""<Linux::8BitDo::8BitDoUltimateWirelessPro2WiredController>/Hat"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": "";Gamepad"",
+                    ""action"": ""Movement"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
                     ""id"": ""02a4a8e0-daef-401e-abab-bf61b294b89b"",
                     ""path"": ""<Keyboard>/e"",
                     ""interactions"": """",
@@ -286,6 +308,17 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
                 },
                 {
                     ""name"": """",
+                    ""id"": ""983a53cf-159e-4e44-8bbb-0baec5a05fe2"",
+                    ""path"": ""<Gamepad>/leftShoulder"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Interact"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
                     ""id"": ""76bb9db4-aeea-42af-9a32-c8c9f992a5a0"",
                     ""path"": ""<Keyboard>/c"",
                     ""interactions"": """",
@@ -310,6 +343,17 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
                     ""name"": """",
                     ""id"": ""95f62e2c-541e-4d1a-a2ec-e9d667a1048d"",
                     ""path"": ""<Gamepad>/buttonSouth"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": "";Gamepad"",
+                    ""action"": ""Fire"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""7c584ad3-3e15-46cb-94c9-d6e134edf1a5"",
+                    ""path"": ""<Gamepad>/rightShoulder"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": "";Gamepad"",
