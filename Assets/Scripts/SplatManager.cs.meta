@@ -1,0 +1,14 @@
+fileFormatVersion: 2
+guid: ac593854bf7bb4c489314353d722db4e
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences:
+  - playerRT: {fileID: 8400000, guid: 014175d63fe777e478f887fc4b056a39, type: 2}
+  - blotMat: {fileID: 2100000, guid: 067d6af83ec488a4a938c70cd401dd11, type: 2}
+  - blotSprite: {fileID: 2800000, guid: 1c05a1ea5e2106643991fdece56e4e47, type: 3}
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

@@ -9,12 +9,20 @@ public class Controllers : MonoBehaviour
     public GameObject playerPrefab;
     public GameObject basketPrefab;
 
+    private MenuManager menuManager;
+
     private List<PlayerInput> players = new List<PlayerInput>();
     public List<Color> Colors = new List<Color>();
     public List<BasketScript> baskets = new List<BasketScript>();
     public List<GameObject> basketSpawners = new List<GameObject>();
     private const int MAX_PLAYERS = 4;
     private bool keyboardTaken = false;
+
+
+    private void Awake ()
+    {
+        menuManager = GetComponent<MenuManager>();
+    }
 
     private void Update()
     {
@@ -45,17 +53,31 @@ public class Controllers : MonoBehaviour
             playerPrefab,
             controlScheme: controlScheme,
             pairWithDevices: devices
-            );
-
-        GameObject b = Instantiate(basketPrefab, basketSpawners[index].transform.position, Quaternion.identity);
+        );
 
         if (index < Colors.Count)
         {
             p.GetComponent<Player>().playerColor = Colors[index];
-            b.GetComponent<BasketScript>().basketColor = Colors[index];
         }
-
-        baskets.Add(b.GetComponent<BasketScript>());
         players.Add(p.GetComponent<PlayerInput>());
+
+        if (menuManager.inMainMenu)
+        {
+            p.transform.position = menuManager.menuSpawnPoints[index].transform.position;
+            menuManager.UpdatePlayerCount(players.Count);
+        }
+    }
+
+    public void SpawnBaskets()
+    {
+        for (int i = 0; i < players.Count; i++)
+        {
+            GameObject b = Instantiate(basketPrefab, basketSpawners[i].transform.position, Quaternion.identity);
+            if (i < Colors.Count)
+            {
+                b.GetComponent<BasketScript>().basketColor = Colors[i];
+            }
+            baskets.Add(b.GetComponent<BasketScript>());
+        }
     }
 }

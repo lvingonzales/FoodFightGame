@@ -44,6 +44,8 @@ public class ProjectileBaseClass : MonoBehaviour
             {
                 return;
             }
+
+            player.AddHitPoints(data.hitValue);
         }
 
         Debug.Log(other.gameObject);

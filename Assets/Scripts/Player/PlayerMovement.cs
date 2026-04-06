@@ -10,21 +10,27 @@ public partial class Player : MonoBehaviour
     
     InputAction moveAction;
     Vector2 moveValue;
-    
-
-    void MovementOnAwake() {
-        
-    }
-
     void InitMovement()
     {
         // change speed and friction to add slippery
         mSpeed = 50f;
         friction = 1.25f;
         moveAction = playerInput.actions.FindAction("Movement");
+        moveAction.Disable();
         rb.linearDamping = speedLimit * friction;
     }
 
+    public void EnableMovement()
+    {
+        moveAction.Enable();
+    }
+
+    public void DisableMovement()
+    {
+        moveAction.Disable();
+        rb.linearVelocity = Vector2.zero;
+    }
+ 
     void UpdateMovement()
     {
         moveValue = moveAction.ReadValue<Vector2>();

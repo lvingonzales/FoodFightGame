@@ -84,6 +84,7 @@ public class PlayerInteractions : MonoBehaviour
         }
     }
 
+
     void SwitchAmmo()
     {
         if (secondaryFruitData == null)

@@ -7,7 +7,7 @@ public partial class Player : MonoBehaviour
     // public PlayerInteraction playerData;
     public int playerId {get; private set;}
     public Color playerColor;
-    public int playerScore;
+    public int playerHitPoints;
 
     public GameObject aimArrow;
 
@@ -17,12 +17,12 @@ public partial class Player : MonoBehaviour
 
     private int GetScore()
     {
-        return playerScore;
+        return playerHitPoints;
     }
 
     public void setScore(int addedScore)
     {
-        playerScore = playerScore + addedScore;
+        playerHitPoints = playerHitPoints + addedScore;
     }
 
     void Awake()
@@ -36,12 +36,17 @@ public partial class Player : MonoBehaviour
     {
         aimArrow.GetComponent<ArrowColor>().SetArrowColor(playerColor);
         InitMovement();
-        playerScore = 0;
+        playerHitPoints = 0;
     }   
 
     void Update()
     {
         UpdateParticles();
         UpdateMovement();
+    }
+
+    public void AddHitPoints (int points)
+    {
+        playerHitPoints = playerHitPoints + points;
     }
 }
