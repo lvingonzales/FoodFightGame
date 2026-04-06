@@ -26,26 +26,30 @@ public class Controllers : MonoBehaviour
 
     private void Update()
     {
-        if (players.Count >= MAX_PLAYERS) { return; }
-
-        if (!keyboardTaken && Keyboard.current.spaceKey.wasPressedThisFrame ) {
-            SpawnPlayer("KeyboardMouse", new InputDevice[] { Keyboard.current, Mouse.current });
-            keyboardTaken = true;
-        }
-
-        foreach (Gamepad gamepad in Gamepad.all)
+        if (menuManager.inMainMenu)
         {
+            if (players.Count >= MAX_PLAYERS) { return; }
+
+            if (!keyboardTaken && Keyboard.current.spaceKey.wasPressedThisFrame ) {
+            CreatePlayer("KeyboardMouse", new InputDevice[] { Keyboard.current, Mouse.current });
+            keyboardTaken = true;
+            }
+
+            foreach (Gamepad gamepad in Gamepad.all)
+            {
             if (players.Count >= MAX_PLAYERS) break;
 
             bool alreadyAssigned = players.Any(p => p.devices.Contains(gamepad));
             if (alreadyAssigned) continue;
 
             if (gamepad.buttonSouth.wasPressedThisFrame)
-                SpawnPlayer("Gamepad", new InputDevice[] { gamepad });
+                CreatePlayer("Gamepad", new InputDevice[] { gamepad });
+            }
         }
+        
     }
 
-    void SpawnPlayer(string controlScheme, InputDevice[] devices)
+    void CreatePlayer(string controlScheme, InputDevice[] devices)
     {
         int index = players.Count;
 
@@ -61,10 +65,27 @@ public class Controllers : MonoBehaviour
         }
         players.Add(p.GetComponent<PlayerInput>());
 
-        if (menuManager.inMainMenu)
+        p.transform.position = menuManager.menuSpawnPoints[index].transform.position;
+        menuManager.UpdatePlayerCount(players.Count);
+    }
+
+
+    public void SpawnPlayers()
+    {
+        for (int i = 0; i < players.Count; i++)
         {
-            p.transform.position = menuManager.menuSpawnPoints[index].transform.position;
-            menuManager.UpdatePlayerCount(players.Count);
+            PlayerInput p = PlayerInput.Instantiate(
+            playerPrefab,
+            controlScheme: players[i].currentControlScheme,
+            pairWithDevices: players[i].devices.ToArray()
+            );
+
+            if (i < Colors.Count)
+            {
+                p.GetComponent<Player>().playerColor = Colors[i];
+            }
+
+            p.GetComponent<PlayerMovement>().EnableMovement();
         }
     }
 
